@@ -17,19 +17,17 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="customer")
+@Table(name="author")
 @Setter
 @Getter
 @ToString
-public class Customer {
+public class Author {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	private String name;
-
-	private String description;
 	
 	private Date date_birth;
 
