@@ -24,6 +24,8 @@ public class AuthorController {
 	@Autowired
 	IAuthorRepo authorRepo;
 	
+	
+	//Save new Author
 	@PostMapping("/author")
 	public ResponseEntity<Author> save(@RequestBody Author Author) {
 		try {
@@ -33,6 +35,7 @@ public class AuthorController {
 		}
 	}
 	
+	//Obtain all the Authors
 	@GetMapping("/author")
 	public ResponseEntity<List<Author>> getAllAuthors() {
 		try {
@@ -47,6 +50,7 @@ public class AuthorController {
 		}
 	}
 	
+	//Obtain info from Author
 	@GetMapping("/author/{id}")
 	public ResponseEntity<Author> getSingleAuthor(@PathVariable Long id) {
 		Optional<Author> Author = authorRepo.findById(id);
@@ -58,6 +62,7 @@ public class AuthorController {
 		return new ResponseEntity<Author>(HttpStatus.NOT_FOUND);
 	}
 	
+	//Update Author	
 	@PutMapping("/author/{id}")
 	public ResponseEntity<Author> updateAuthor(@RequestBody Author Author) {
 		
@@ -68,6 +73,7 @@ public class AuthorController {
 		}
 	}
 	
+	//Delete Author
 	@DeleteMapping("/author/{id}")
 	public ResponseEntity<HttpStatus> deleteAuthor(@PathVariable Long id) {
 		try {
