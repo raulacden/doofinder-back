@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}">
+<head>
+<title>Doofinder - Books</title>
+</head>
+<body>
+
+
+	<div layout:fragment="content">
+		<section class="my-5">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+
+						<button type="button" class="btn btn-success"
+							data-bs-toggle="modal" data-bs-target="#createBook">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+								fill="currentColor" class="bi bi-plus-circle"
+								viewBox="0 0 16 16">
+  								<path
+									d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+  									<path
+									d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+						</svg>
+							New Book
+						</button>
+
+					</div>
+				</div>
+
+				<br> <br>
+
+				<div class="row">
+					<div class="col-md-12">
+						<span class="fs-4">Books</span>
+
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">Id</th>
+									<th scope="col">Title</th>
+									<th scope="col">Description</th>
+									<th scope="col">Year Publication</th>
+									<th scope="col">Author</th>
+									<th scope="col">Genre</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="book, itemStat : ${books}">
+									<td th:text="${book.getId()}"></td>
+									<td th:text="${book.getTitle()}"></td>
+									<td th:text="${book.getDescription()}"></td>
+									<td th:text="${book.getYearPublication()}"></td>
+									<td th:text="${book.getAuthor().getName()}"></td>
+									<td th:text="${book.getGenre().getName()}"></td>
+									<td>
+										<button type="button" class="btn btn-primary">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16"
+												height="16" fill="currentColor" class="bi bi-pencil"
+												viewBox="0 0 16 16">
+								  			<path
+													d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"></path>
+										</svg>
+											Update
+										</button> <a type="button" class="btn btn-outline-danger"
+										th:href="@{/webBooks/delete/{id}(id=${book.getId()})}"> <svg
+												xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+												fill="currentColor" class="bi bi-x-octagon"
+												viewBox="0 0 16 16">
+  												<path
+													d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"></path>
+  												<path
+													d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+											</svg> Delete
+									</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<!-- Create Modal -->
+			<div class="modal fade" id="createBook" tabindex="-1"
+				aria-labelledby="createBookLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="createBookLabel">Create Book</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<form th:object="${book}" th:action="@{/webBooks/create}"
+							method="post">
+							<div class="modal-body">
+
+								<div class="mb-3">
+									<label for="title" class="col-form-label">Title</label> <input
+										id="title" type="text" th:field="*{title}"
+										class="form-control">
+									<p th:if="${#fields.hasErrors('title')}"
+										th:text="${#strings.listJoin(#fields.errors('title'), ', ')}"></p>
+								</div>
+								<div class="mb-3">
+									<label for="description" class="col-form-label">Description</label>
+									<input id="description" type="text" th:field="*{description}"
+										class="form-control">
+									<p th:if="${#fields.hasErrors('description')}"
+										th:text="${#strings.listJoin(#fields.errors('description'), ', ')}"></p>
+								</div>
+								<div class="mb-3">
+									<label for="yearPublication" class="col-form-label">Year
+										of Publication</label> <input id="yearPublication" type="text"
+										th:field="*{yearPublication}" class="form-control">
+									<p th:if="${#fields.hasErrors('yearPublication')}"
+										th:text="${#strings.listJoin(#fields.errors('yearPublication'), ', ')}"></p>
+								</div>
+
+								<div class="mb-3">
+									<label for="author" class="col-form-label">Authors</label> <select
+										th:field="*{author}" class="form-select">
+										<option th:each="author : ${listAuthors}"
+											th:value="${author.getId()}" th:text="${author.getName()}"></option>
+									</select>
+
+									<p th:if="${#fields.hasErrors('author')}"
+										th:text="${#strings.listJoin(#fields.errors('author'), ', ')}"></p>
+								</div>
+
+								<div class="mb-3">
+									<label for="genre" class="col-form-label">Genres</label> <select
+										th:field="*{genre}" class="form-select">
+										<option th:each="genre : ${listGenres}"
+											th:value="${genre.getId()}" th:text="${genre.getName()}"></option>
+									</select>
+
+									<p th:if="${#fields.hasErrors('genre')}"
+										th:text="${#strings.listJoin(#fields.errors('genre'), ', ')}"></p>
+								</div>
+
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-success">Create</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+
+		</section>
+	</div>
+
+
+</body>
+</html>

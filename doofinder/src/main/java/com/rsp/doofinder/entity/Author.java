@@ -16,6 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+
 @Entity
 @Table(name="author")
 @Setter
@@ -29,9 +30,9 @@ public class Author {
 	
 	private String name;
 	
-	private Date date_birth;
+	private String yearBirth;
 
-	private Date date_death;	
+	private String yearDeath;	
 	
 	@CreationTimestamp
 	@Column(name="created_at", nullable=false, updatable=false)

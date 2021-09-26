@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,11 +33,15 @@ public class Book {
 
 	private String description;
 	
-	private Integer year_publication;
+	private String yearPublication;
 
-	private Integer id_author;
+	@OneToOne
+	@JoinColumn(name = "AUTHOR", referencedColumnName = "ID")
+	private Author author;
 	
-	private Integer id_genre;
+	@OneToOne
+	@JoinColumn(name = "GENRE", referencedColumnName = "ID")
+	private Genre genre;
 	
 	@CreationTimestamp
 	@Column(name="created_at", nullable=false, updatable=false)
