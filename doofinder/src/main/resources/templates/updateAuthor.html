@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}">
+<head>
+<title>Doofinder - Author</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+		<section class="my-5">
+			<div class="container">
+				<div class="row">
+				</div>
+				
+				<div class="row">
+					<div class="col-md-8">
+						<span class="fs-4">Update Author</span>	
+						
+						<br>					
+						
+						<form th:object="${authorUpdate}" th:action="@{/webAuthors/saveUpdate}"
+							method="post">
+							
+								<div class="mb-3" hidden>
+									<label for="id"  class="form-label"></label> <input id="id" type="text"
+										th:field="*{id}"  class="form-control">
+								</div>
+		
+								<div class="mb-3">
+									<label for="name"  class="form-label">Given name</label> <input id="name" type="text"
+										th:field="*{name}"  class="form-control">								  
+								</div>
+								
+								<div class="mb-3">
+									<label for="yearBirth" class="form-label">Year of Birth</label> <input
+										id="yearBirth" type="text" th:field="*{yearBirth}" class="form-control">
+									
+								</div>
+								<div class="mb-3">
+									<label for="yearDeath" class="form-label">Year of Death</label> <input
+										id="yearDeath" type="text" th:field="*{yearDeath}" class="form-control">
+									
+								</div>	
+		
+								<a type="button" class="btn btn-secondary" th:href="@{/webAuthors}">Back</a>
+								<button type="submit" class="btn btn-primary">Update</button>
+						</form>			
+						
+					</div>
+				</div>
+			</div>					
+			
+		</section>
+	</div>
+	
+
+</body>
+</html>

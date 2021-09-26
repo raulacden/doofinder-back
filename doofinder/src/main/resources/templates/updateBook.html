@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}">
+<head>
+<title>Doofinder - Book</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+		<section class="my-5">
+			<div class="container">
+				<div class="row">
+				</div>
+				
+				<div class="row">
+					<div class="col-md-8">
+						<span class="fs-4">Update Book</span>	
+						
+						<br>					
+						
+						<form th:object="${bookUpdate}" th:action="@{/webBooks/saveUpdate}"
+							method="post">
+							
+								<div class="mb-3" hidden>
+									<label for="id"  class="form-label"></label> <input id="id" type="text"
+										th:field="*{id}"  class="form-control">
+								</div>
+		
+								<div class="mb-3">
+									<label for="title"  class="form-label">Title</label> <input id="title" type="text"
+										th:field="*{title}"  class="form-control">								  
+								</div>
+								
+								<div class="mb-3">
+									<label for="description" class="form-label">Description</label> <input
+										id="description" type="text" th:field="*{description}" class="form-control">
+									
+								</div>
+								<div class="mb-3">
+									<label for="yearPublication" class="form-label">Year of Publication</label> <input
+										id="yearPublication" type="text" th:field="*{yearPublication}" class="form-control">
+									
+								</div>
+								
+								<div class="mb-3">
+									<label for="author" class="col-form-label">Authors</label> <select
+										th:field="*{author}" class="form-select">
+										<option th:each="author : ${listAuthors}"
+											th:value="${author.getId()}" th:text="${author.getName()}" th:selected="${author.getId()} == ${id} ? true : false"></option>
+									</select>
+
+									<p th:if="${#fields.hasErrors('author')}"
+										th:text="${#strings.listJoin(#fields.errors('author'), ', ')}"></p>
+								</div>
+
+								<div class="mb-3">
+									<label for="genre" class="col-form-label">Genres</label> <select
+										th:field="*{genre}" class="form-select">
+										<option th:each="genre : ${listGenres}"
+											th:value="${genre.getId()}" th:text="${genre.getName()}" th:selected="${genre.getId()} == ${id} ? true : false"></option>
+									</select>
+
+									<p th:if="${#fields.hasErrors('genre')}"
+										th:text="${#strings.listJoin(#fields.errors('genre'), ', ')}"></p>
+								</div>	
+		
+								<a type="button" class="btn btn-secondary" th:href="@{/webAuthors}">Back</a>
+								<button type="submit" class="btn btn-primary">Update</button>
+						</form>			
+						
+					</div>
+				</div>
+			</div>					
+			
+		</section>
+	</div>
+
+</body>
+</html>
